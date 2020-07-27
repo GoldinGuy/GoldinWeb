@@ -626,7 +626,7 @@ ul.dropdown-menu li {
 
 @media (max-width: 400px) {
 	.slider {
-		background: url("../images/bg/ipad4.jpg") no-repeat;
+		background: url("../images/bg/ipad1.jpg") no-repeat;
 		background-size: cover;
 		background-position: 10% 0%;
 		padding: 200px 0 280px 0;
