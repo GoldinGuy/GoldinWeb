@@ -1450,6 +1450,10 @@ h3.quote::before {
 	.navbar-toggler {
 		color: #fff;
 	}
+	
+	.bgg {
+	background-color: #f7f7f7;
+	}
 
 	.slider .block h1 {
 		font-size: 38px;
@@ -1521,9 +1525,6 @@ h3.quote::before {
 		color: #fff;
 	}
 	
-	.bgg {
-	background-color: #f7f7f7;
-	}
 
 	.bg-about {
 		display: none;
