@@ -74,7 +74,6 @@
 		var mapOptions = {
 			zoom: 13,
 			center: new google.maps.LatLng(50.97797382271958, -114.107718560791)
-			// styles: style_array_here
 		};
 		map = new google.maps.Map(
 			document.getElementById("map-canvas"),
@@ -139,65 +138,26 @@
 				);
 			});
 		};
-	});
 
-	jQuery(document).ready(function () {
-		"use strict";
-		new WOW().init();
+		jQuery(document).ready(function () {
+			"use strict";
+			new WOW().init();
 
-		(function () {
-			jQuery(".smooth-scroll").scrollingTo();
-		})();
-	});
-
-	$(document).ready(function () {
-		$(window).scroll(function () {
-			if ($(window).scrollTop() > 50) {
-				$(".navbar-brand a").css("color", "#fff");
-				$("#top-bar").removeClass("animated-header");
-			} else {
-				$(".navbar-brand a").css("color", "inherit");
-				$("#top-bar").addClass("animated-header");
-			}
+			(function () {
+				jQuery(".smooth-scroll").scrollingTo();
+			})();
 		});
-	});
 
-	$("#contact-form").validate({
-		rules: {
-			name: {
-				required: true,
-				minlength: 4
-			},
-			email: {
-				required: true,
-				email: true
-			},
-			subject: {
-				required: false
-			},
-			message: {
-				required: true
-			}
-		},
-		messages: {
-			user_name: {
-				required: "Please enter your name",
-				minlength: "Your name must consist of at least 2 characters"
-			},
-			email: {
-				required: "Please enter your email address"
-			},
-			message: {
-				required: "Please enter your message",
-				minlength: "Your message must consist of at least 2 characters"
-			}
-		},
-		submitHandler: function send_mail() {
-			window.location.href =
-				"mailto:goldinwebdesign@gmail.com?subject=Website%20Inquiry" +
-				"&body=" +
-				encodeURI(document.getElementById("message_field").value);
-			return false;
-		}
-	});
+		$(document).ready(function () {
+			$(window).scroll(function () {
+				if ($(window).scrollTop() > 50) {
+					$(".navbar-brand a").css("color", "#fff");
+					$("#top-bar").removeClass("animated-header");
+				} else {
+					$(".navbar-brand a").css("color", "inherit");
+					$("#top-bar").addClass("animated-header");
+				}
+			});
+		});
+	})(jQuery);
 })(jQuery);
