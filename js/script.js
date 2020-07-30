@@ -1,205 +1,203 @@
-(function($) {
+(function ($) {
+	"use strict";
 
-  'use strict';
+	$(".portfolio-single-slider").slick({
+		infinite: true,
+		arrows: false,
+		autoplay: true,
+		autoplaySpeed: 2000
+	});
 
+	$(".clients-logo").slick({
+		infinite: true,
+		arrows: false,
+		autoplay: true,
+		autoplaySpeed: 2000
+	});
 
-  $('.portfolio-single-slider').slick({
-    infinite: true,
-    arrows: false,
-    autoplay: true,
-    autoplaySpeed: 2000
+	$(".testimonial-wrap").slick({
+		slidesToShow: 2,
+		slidesToScroll: 2,
+		infinite: true,
+		dots: true,
+		arrows: false,
+		autoplay: true,
+		autoplaySpeed: 6000,
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					infinite: true,
+					dots: true
+				}
+			},
+			{
+				breakpoint: 900,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2
+				}
+			},
+			{
+				breakpoint: 600,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1
+				}
+			}
+		]
+	});
 
-  });
+	$(".portfolio-gallery").each(function () {
+		$(this)
+			.find(".popup-gallery")
+			.magnificPopup({
+				type: "image",
+				gallery: {
+					enabled: true
+				}
+			});
+	});
 
-  $('.clients-logo').slick({
-    infinite: true,
-    arrows: false,
-    autoplay: true,
-    autoplaySpeed: 2000
-  });
+	var map;
 
-  $('.testimonial-wrap').slick({
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    infinite: true,
-    dots: true,
-    arrows: false,
-    autoplay: true,
-    autoplaySpeed: 6000,
-    responsive: [{
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 900,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2
-        }
-      }, {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
+	function initialize() {
+		var mapOptions = {
+			zoom: 13,
+			center: new google.maps.LatLng(50.97797382271958, -114.107718560791)
+			// styles: style_array_here
+		};
+		map = new google.maps.Map(
+			document.getElementById("map-canvas"),
+			mapOptions
+		);
+	}
 
-    ]
-  });
+	var google_map_canvas = $("#map-canvas");
 
-  $('.portfolio-gallery').each(function() {
-    $(this).find('.popup-gallery').magnificPopup({
-      type: 'image',
-      gallery: {
-        enabled: true
-      }
-    });
-  });
+	if (google_map_canvas.length) {
+		google.maps.event.addDomListener(window, "load", initialize);
+	}
 
+	// Counter
 
-  var map;
+	$(".counter-stat").counterUp({
+		delay: 10,
+		time: 1000
+	});
 
-  function initialize() {
-    var mapOptions = {
-      zoom: 13,
-      center: new google.maps.LatLng(50.97797382271958, -114.107718560791)
-      // styles: style_array_here
-    };
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  }
+	(function ($) {
+		$.fn.scrollingTo = function (opts) {
+			var defaults = {
+				animationTime: 1000,
+				easing: "",
+				callbackBeforeTransition: function () {},
+				callbackAfterTransition: function () {}
+			};
 
-  var google_map_canvas = $('#map-canvas');
+			var config = $.extend({}, defaults, opts);
 
-  if (google_map_canvas.length) {
-    google.maps.event.addDomListener(window, 'load', initialize);
-  }
+			$(this).click(function (e) {
+				var eventVal = e;
+				e.preventDefault();
 
-  // Counter
+				var $section = $(document).find($(this).data("section"));
+				if ($section.length < 1) {
+					return false;
+				}
 
-  $('.counter-stat').counterUp({
-    delay: 10,
-    time: 1000
-  });
+				if ($("html, body").is(":animated")) {
+					$("html, body").stop(true, true);
+				}
 
+				var scrollPos = $section.offset().top;
 
-  (function($) {
-    $.fn.scrollingTo = function(opts) {
-      var defaults = {
-        animationTime: 1000,
-        easing: '',
-        callbackBeforeTransition: function() {},
-        callbackAfterTransition: function() {}
-      };
+				if ($(window).scrollTop() == scrollPos) {
+					return false;
+				}
 
-      var config = $.extend({}, defaults, opts);
+				config.callbackBeforeTransition(eventVal, $section);
 
-      $(this).click(function(e) {
-        var eventVal = e;
-        e.preventDefault();
+				$("html, body").animate(
+					{
+						scrollTop: scrollPos + "px"
+					},
+					config.animationTime,
+					config.easing,
+					function () {
+						config.callbackAfterTransition(eventVal, $section);
+					}
+				);
+			});
+		};
+	});
 
-        var $section = $(document).find($(this).data('section'));
-        if ($section.length < 1) {
-          return false;
-        };
+	jQuery(document).ready(function () {
+		"use strict";
+		new WOW().init();
 
-        if ($('html, body').is(':animated')) {
-          $('html, body').stop(true, true);
-        };
+		(function () {
+			jQuery(".smooth-scroll").scrollingTo();
+		})();
+	});
 
-        var scrollPos = $section.offset().top;
+	$(document).ready(function () {
+		$(window).scroll(function () {
+			if ($(window).scrollTop() > 50) {
+				$(".navbar-brand a").css("color", "#fff");
+				$("#top-bar").removeClass("animated-header");
+			} else {
+				$(".navbar-brand a").css("color", "inherit");
+				$("#top-bar").addClass("animated-header");
+			}
+		});
+	});
 
-        if ($(window).scrollTop() == scrollPos) {
-          return false;
-        };
-
-        config.callbackBeforeTransition(eventVal, $section);
-
-        $('html, body').animate({
-          'scrollTop': (scrollPos + 'px')
-        }, config.animationTime, config.easing, function() {
-          config.callbackAfterTransition(eventVal, $section);
-        });
-      });
-    };
-
-
-    jQuery(document).ready(function() {
-      "use strict";
-      new WOW().init();
-
-
-      (function() {
-        jQuery('.smooth-scroll').scrollingTo();
-      }());
-
-    });
-
-
-
-    $(document).ready(function() {
-
-      $(window).scroll(function() {
-        if ($(window).scrollTop() > 50) {
-          $(".navbar-brand a").css("color", "#fff");
-          $("#top-bar").removeClass("animated-header");
-        } else {
-          $(".navbar-brand a").css("color", "inherit");
-          $("#top-bar").addClass("animated-header");
-        }
-      });
-
-
-
-    });
-
-  
-
-    $('#contact-form').validate({
-      rules: {
-        name: {
-          required: true,
-          minlength: 4
-        },
-        email: {
-          required: true,
-          email: true
-        },
-        subject: {
-          required: false,
-        },
-        message: {
-          required: true,
-        },
-      },
-      messages: {
-        user_name: {
-          required: "Please enter your name",
-          minlength: "Your name must consist of at least 2 characters"
-        },
-        email: {
-          required: "Please enter your email address",
-        },
-        message: {
-          required: "Please enter your message",
-          minlength: "Your message must consist of at least 2 characters"
-        },
-      },
-      submitHandler: function send_mail() {
-        window.location.href = 'mailto:goldinwebdesign@gmail.com?subject=Website%20Inquiry' +
-          '&body=' + encodeURI(document.getElementById("message_field").value)
-        return false
-      }
-    });
+	$("#contact-form").validate({
+		rules: {
+			name: {
+				required: true,
+				minlength: 4
+			},
+			email: {
+				required: true,
+				email: true
+			},
+			subject: {
+				required: false
+			},
+			message: {
+				required: true
+			}
+		},
+		messages: {
+			user_name: {
+				required: "Please enter your name",
+				minlength: "Your name must consist of at least 2 characters"
+			},
+			email: {
+				required: "Please enter your email address"
+			},
+			message: {
+				required: "Please enter your message",
+				minlength: "Your message must consist of at least 2 characters"
+			}
+		},
+		submitHandler: function send_mail() {
+			window.location.href =
+				"mailto:goldinwebdesign@gmail.com?subject=Website%20Inquiry" +
+				"&body=" +
+				encodeURI(document.getElementById("message_field").value);
+			return false;
+		}
+	});
 })(jQuery);
